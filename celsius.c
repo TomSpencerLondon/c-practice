@@ -8,18 +8,6 @@ for farh = 0, 20, ..., 300
 */
 
 int main(int argc, char *argv[]) {
-	float fahr, celsius;
-	float lower, upper, step;
-	
-	if (argc > 1) {
-		
-		upper = atof(argv[2]);
-		step = atof(argv[3]);
-	}
-	
-
-	
-	lower = 0.0;
 	// upper = 300.0;
 	// step = 20.0;
 	
