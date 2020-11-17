@@ -39,4 +39,26 @@ int main(){
 		
 		printf("\n");
 	}
+	
+	int maxOccurrence = 0;
+	
+	for(i = 0; i < max; i++){
+		if (histogram[i] > maxOccurrence){
+			maxOccurrence = histogram[i];
+		}
+	}
+	
+	int line;
+	
+	for (int line = 0; line < maxOccurrence; line++){
+		for (j = 0; j < max; j++){
+			if (histogram[j] >= maxOccurrence - line){
+				printf("| ");
+			}else {
+				printf("  ");
+			}
+		}
+		printf("\n");
+	}
+	printf("1 2 3 4 5 6 7 8 9 10");
 }
