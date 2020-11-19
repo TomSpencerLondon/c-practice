@@ -50,7 +50,7 @@ int main(){
 	
 	int el;
 	
-	for (i = 0; i < maxOccurrence - 1; i++){
+	for (i = 0; i < maxOccurrence; i++){
 		for (el = 0; el < max; el++){
 			printf("| ");
 		}
