@@ -42,29 +42,30 @@ int main(){
 	
 	int maxOccurrence = 0;
 	
-	for(i = 0; i < max; i++){
+	for (i = 0; i < max; i++){
 		if (histogram[i] > maxOccurrence){
 			maxOccurrence = histogram[i];
 		}
 	}
 	
-	int line;
+	int el;
 	
-	for (int line = 0; line <= maxOccurrence + 1; line++){
-		for (i = 0; i < max; i++){
-			if ((histogram[i] == maxOccurrence - line) && (histogram[i] > 0)) {
-				printf("- ");
-			}else if((histogram[i] > maxOccurrence - line) && (histogram[i] > 0)){
-				if (line == maxOccurrence + 1){
-					printf("- ");
-				}else {
-					printf("| ");
-				}
-			}else {
-				printf("  ");
-			}
+	for (i = 0; i < maxOccurrence - 1; i++){
+		for (el = 0; el < max; el++){
+			printf("| ");
 		}
 		printf("\n");
 	}
+	
 	printf("1 2 3 4 5 6 7 8 9 10");
 }
+
+
+
+
+
+
+
+
+
+
