@@ -50,10 +50,16 @@ int main(){
 	
 	int line;
 	
-	for (int line = 0; line < maxOccurrence; line++){
-		for (j = 0; j < max; j++){
-			if (histogram[j] >= maxOccurrence - line){
-				printf("| ");
+	for (int line = 0; line <= maxOccurrence + 1; line++){
+		for (i = 0; i < max; i++){
+			if ((histogram[i] == maxOccurrence - line) && (histogram[i] > 0)) {
+				printf("- ");
+			}else if((histogram[i] > maxOccurrence - line) && (histogram[i] > 0)){
+				if (line == maxOccurrence + 1){
+					printf("- ");
+				}else {
+					printf("| ");
+				}
 			}else {
 				printf("  ");
 			}
