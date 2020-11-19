@@ -50,12 +50,27 @@ int main(){
 	
 	int el;
 	
-	for (i = 0; i < maxOccurrence; i++){
+	for (i = 0; i <= maxOccurrence; i++){
 		for (el = 0; el < max; el++){
-			printf("| ");
+			if ((histogram[el] == maxOccurrence - i) && (histogram[el] > 0)){
+				printf("- ");
+			}else if ((histogram[el] > maxOccurrence - i) && histogram[el] > 0) {
+				printf("| ");
+			}else {
+				printf("  ");
+			}
 		}
 		printf("\n");
 	}
+	
+	for (el = 0; el < max; el++){
+		if (histogram[el] > 0){
+			printf("- ");
+		}else {
+			printf("  ");
+		}
+	}
+	printf("\n");
 	
 	printf("1 2 3 4 5 6 7 8 9 10");
 }
