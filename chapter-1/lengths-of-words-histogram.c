@@ -8,16 +8,16 @@ int main(){
 	max = LONGEST;
 	int character;
 	int lengthOfWord = 0;
-	int histogram[max];
+	int wordCounts[max];
 	
 	for (i = 0; i < 10; ++i){
-		histogram[i] = 0;
+		wordCounts[i] = 0;
 	}
 	
 	while((character = getchar()) != EOF) {
 		if (character == ' ' || character == '\n' || character == '\t'){
 			if (lengthOfWord > 0){
-				histogram[lengthOfWord - 1]++;
+				wordCounts[lengthOfWord - 1]++;
 				lengthOfWord = 0;
 			}
 		}else {
@@ -29,9 +29,9 @@ int main(){
 	
 	for (i = 0; i < max; ++i){
 		printf("%2d ", i + 1);
-		if (histogram[i] > 0){
+		if (wordCounts[i] > 0){
 			printf("|");
-			for (j = 0; j < histogram[i]; ++j){
+			for (j = 0; j < wordCounts[i]; ++j){
 				printf("-");
 			}
 			printf("|");
@@ -43,18 +43,21 @@ int main(){
 	int maxOccurrence = 0;
 	
 	for (i = 0; i < max; i++){
-		if (histogram[i] > maxOccurrence){
-			maxOccurrence = histogram[i];
+		if (wordCounts[i] > maxOccurrence){
+			maxOccurrence = wordCounts[i];
 		}
 	}
 	
-	int el;
+	int column;
+	int row;
 	
-	for (i = 0; i <= maxOccurrence; i++){
-		for (el = 0; el < max; el++){
-			if ((histogram[el] == maxOccurrence - i) && (histogram[el] > 0)){
+	for (row = maxOccurrence + 1; row >= 0; row--){
+		for (column = 0; column < max; column++){
+			if ((wordCounts[column] + 1 == row) && (wordCounts[column] > 0)){
 				printf("- ");
-			}else if ((histogram[el] > maxOccurrence - i) && histogram[el] > 0) {
+			}else if((row == 0) && wordCounts[column] > 0) {
+				printf("- ");
+			}else if ((wordCounts[column] + 1 > row) && wordCounts[column] > 0) {
 				printf("| ");
 			}else {
 				printf("  ");
@@ -62,15 +65,15 @@ int main(){
 		}
 		printf("\n");
 	}
-	
-	for (el = 0; el < max; el++){
-		if (histogram[el] > 0){
-			printf("- ");
-		}else {
-			printf("  ");
-		}
-	}
-	printf("\n");
+	//
+	// for (column = 0; column < max; column++){
+	// 	if (wordCounts[column] > 0){
+	// 		printf("- ");
+	// 	}else {
+	// 		printf("  ");
+	// 	}
+	// }
+	// printf("\n");
 	
 	printf("1 2 3 4 5 6 7 8 9 10");
 }
