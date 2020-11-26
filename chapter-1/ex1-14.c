@@ -27,16 +27,17 @@ int main(){
 	int j;
 	
 	for (i = 0; i < 26; ++i){
-		printf("%2c ", letters[i]);
+		if (letterCounts[i] > 0){
+			printf("%2c ", letters[i]);
+		}
 		if (letterCounts[i] > 0){
 			printf("|");
 			for (j = 0; j < letterCounts[i]; ++j){
 				printf("-");
 			}
 			printf("|");
+			printf("\n");
 		}
-		
-		printf("\n");
 	}
 	
 	int maxOccurrence = 0;
@@ -59,13 +60,19 @@ int main(){
 			}else if ((letterCounts[column] + 1 > row) && letterCounts[column] > 0) {
 				printf("| ");
 			}else {
-				printf("  ");
+				printf("");
 			}
 		}
 		printf("\n");
 	}
 	
-	printf("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
+	for (i = 0; i < 26; i++){
+		if (letterCounts[i] > 0){
+			printf("%c ", letters[i]);
+		}
+	}
+	
+	// printf("A B C D E F G H I J K L M N O P Q R S T U V W X Y Z");
 }
 
 

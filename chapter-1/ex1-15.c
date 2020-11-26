@@ -4,7 +4,10 @@
 #define UPPER 300.0
 #define STEP 20.0
 
-float celsius(float farh);
+float celsius(float fahr){
+	float celsius = (5.0 / 9.0) * (fahr - 32.0);
+	return celsius;
+}
 
 int main() {
 	float fahr;
@@ -15,9 +18,4 @@ int main() {
 	}
 	
 	return 0;
-}
-
-float celsius(float fahr){
-	float celsius = (5.0 / 9.0) * (fahr - 32.0);
-	return celsius;
 }
