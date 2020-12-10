@@ -1,25 +1,11 @@
-#include <stdio.h>
-#define TAB_LENGTH 8
-
-int main(){
-	char c;
-	int position = 1;
-	int number_of_blanks;
+// Write a program detab that replaces tabs in the input with the
+// proper number of blanks of space to the next tab stop. Assume a fixed set
+// of tab stops, say every n columns. Should n be a variable or a symbolic parameter?
+// 1. input: tabs -> output: spaces
+// 2. n = spaces between each tab
+// the quick	  brown fox
+// 12345678901234
+		
+int main() {
 	
-	while ((c = getchar()) != EOF){
-		if (c == '\t'){
-			number_of_blanks = TAB_LENGTH - (position - 1) % TAB_LENGTH;
-			while(number_of_blanks > 0){
-				putchar(' ');
-				++position;
-				--number_of_blanks;
-			}
-		}else if (c == '\n'){
-			putchar(c);
-			position = 1;
-		}else {
-			putchar(c);
-			++position;
-		}
-	}
 }
