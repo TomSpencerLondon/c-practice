@@ -14,39 +14,27 @@
 #define TAB_SPACES 8
 
 int main() {
-	int position = 1;
-	int tabs = 0;
 	int spaces = 0;
+	int column = 0;
 	int c;
-	
 	while((c = getchar()) != EOF){
-		if (c == ' '){
-			if (position % TAB_SPACES != 0){
-				spaces++;
-			}else {
-				spaces = 0;
-				tabs++;
+		column++;
+		
+		if (column % TAB_SPACES == 0 && c == ' '){
+			putchar('\t');
+			spaces = 0;
+		}else if (c == ' '){
+			spaces++;
+		}else if (c == '\n'){
+			column = 0;
+			spaces = 0;
+		}else {
+			for (int i = 0; i < spaces; i++){
+				putchar(' ');
 			}
-		}else{
-			for (int i = tabs; i > 0; i--){
-				putchar('\t');
-				tabs--;
-			}	
-			if (c == '\t'){
-				spaces = 0;
-			}else {
-				for (int i = spaces; spaces > 0; i--){
-					putchar(' ');
-					spaces--;
-				}
-			}
+			spaces = 0;
 			putchar(c);
-			if (c == '\n'){
-				position = 0;
-			}else if (c == '\t'){
-				position = position + (TAB_SPACES - (position - 1) % TAB_SPACES) - 1;
-			}
+			
 		}
-		position++;
 	}
 }
