@@ -11,38 +11,61 @@
 // on the
 // prairie
 
-#define LINE_LENGTH 80
-#define MAX_LINE 1000
-
+#define MARGIN_POSITION 80
 
 int main(){
-	char currentWord[MAX_LINE];
-	int position = 0;
-	int lengthOfWord = 0;
+	int currentColumn = 0;
+	char word[MARGIN_POSITION];
+	int positionInWord = 0;
 	int c;
+
 	while((c = getchar()) != EOF) {
-		if (c == ' ' || c == '\t' || c == '\n'){
-			currentWord[position] = '\0';
-			if (lengthOfWord + position >= LINE_LENGTH){
-				printf("\n");
-				lengthOfWord = position;
-			}else {
-				if (c == '\n'){
-					lengthOfWord = 0;
-				}
-				if (c == '\t'){
-					lengthOfWord += 4;
-				}else {
-					lengthOfWord++;
-				}
+		if (c == '\n'){
+			for (int i = 0; i < positionInWord; i++){
+				putchar(word[i]);
 			}
-			printf("%s", currentWord);
 			putchar(c);
-			position = 0;
+			currentColumn = 0;
+			positionInWord = 0;
+		}else if (c == ' ') {
+			for (int i = 0; i < positionInWord; i++){
+				putchar(word[i]);
+			}
+			putchar(c);
+			if (currentColumn > MARGIN_POSITION){
+				positionInWord = 0;
+				currentColumn = 0;
+				putchar('\n');
+			}else {
+				positionInWord = 0;
+				currentColumn++;
+			}
+		}else if (c == '\t') {
+			for (int i = 0; i < positionInWord; i++){
+				putchar(word[i]);
+			}
+			putchar(c);
+			if (currentColumn > MARGIN_POSITION){
+				positionInWord = 0;
+				currentColumn = 0;
+				putchar('\n');
+			}else {
+			  positionInWord = 0;
+			  currentColumn += 4;
+			}
 		} else {
-			currentWord[position] = c;
-			++position;
+			if (currentColumn > MARGIN_POSITION){
+				putchar('\n');
+				word[positionInWord++] = c;
+				for (int i = 0; i < positionInWord; i++){
+					putchar(word[i]);
+				}
+				positionInWord = 0;
+				currentColumn = 0;
+			}else {
+				word[positionInWord++] = c;
+				currentColumn++;
+			}
 		}
-		++lengthOfWord;
 	}
 }
