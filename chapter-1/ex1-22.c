@@ -17,16 +17,25 @@ char word[MARGIN_POSITION];
 int positionInWord;
 int c;
 
-void flushBuffer(){
+void flushWordBuffer(){
 	for (int i = 0; i < positionInWord; i++){
 		putchar(word[i]);
 	}
 	positionInWord = 0;
 }
 
-void reset(){
-	flushBuffer();
-	putchar(c);
+void pushToWordBuffer(int c){
+	word[positionInWord++] = c;
+}
+
+void newLine(){
+	currentColumn = 0;
+	putchar('\n');
+}
+
+void foldLine(){
+	flushWordBuffer();
+	putchar('\n');
 	currentColumn = 0;
 }
 
@@ -36,15 +45,13 @@ int main(){
 
 	while((c = getchar()) != EOF) {
 		if (c == '\n'){
-			reset();
+			foldLine();
 		}else if (c == ' ' || c == '\t') {
-			flushBuffer();
-			putchar(c);
-
+			flushWordBuffer();
 			if (currentColumn > MARGIN_POSITION){
-				currentColumn = 0;
-				putchar('\n');
+				newLine();
 			}else {
+				putchar(c);
 				if (c == ' '){
 					currentColumn++;
 				}else if (c == '\t'){
@@ -52,14 +59,10 @@ int main(){
 				}
 			}
 		} else {
+			pushToWordBuffer(c);
 			if (currentColumn > MARGIN_POSITION){
-				putchar('\n');
-				word[positionInWord++] = c;
-				flushBuffer();
-				
-				currentColumn = 0;
+				foldLine();
 			}else {
-				word[positionInWord++] = c;
 				currentColumn++;
 			}
 		}
