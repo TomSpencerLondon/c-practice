@@ -61,9 +61,7 @@ int main(){
 		} else {
 			pushToWordBuffer(c);
 			if (currentColumn > MARGIN_POSITION){
-				if(c == ' ' || c == '\t'){
-					foldLine();
-				}else if(positionInWord > MARGIN_POSITION){
+				if(c == ' ' || c == '\t' || positionInWord > MARGIN_POSITION){
 					foldLine();
 				}else {
 					putchar('\n');
@@ -75,3 +73,11 @@ int main(){
 		}
 	}
 }
+
+
+
+
+
+
+
+
