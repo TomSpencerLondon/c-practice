@@ -13,17 +13,32 @@
 int main(){
 	int c;
 	int d;
-	int inComment = 0;
+	int inSingleLineComment = 0;
+	int inMultiLineComment = 0;
 	while((c = getchar()) != EOF) {
-		if (inComment == 1 && c == '\n'){
-			inComment = 0;
+		if (inSingleLineComment == 1){
+			if (c == '\n'){
+				inSingleLineComment = 0;
+			}
+		}else if (inMultiLineComment == 1) {
+			if (c == '*'){
+				if ((d = getchar()) == '/'){
+					inMultiLineComment = 0;
+				}else {
+					putchar(c);
+					putchar(d);
+				}
+			}
 		}else if (c == '/'){
 			if ((d = getchar()) == '/'){
-				inComment = 1;
+				inSingleLineComment = 1;
+			}else if (d == '*'){
+				inMultiLineComment = 1;
 			}else {
-				inComment = 0;
+				putchar(c);
+				putchar(d);
 			}
-		}else if (inComment == 0){
+		}else {
 			putchar(c);
 		}
 	}
