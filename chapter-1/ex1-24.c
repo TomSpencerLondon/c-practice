@@ -4,12 +4,19 @@
 // escape sequences, and comments.
 // This program is hard if you do it in full generality.
 
-{
-	{
-		1: {
-			2: {
-				
-			}
-		}
-	}
-}		
+#include <string.h>
+#include <stdio.h>
+// Good
+// 2 + (3 + 8)
+// Bad
+// 9 + (3
+// 2) - 7 + (10 / 5)
+
+// startLoop to get characters
+// balanced = 0
+// if char == '(' balanced += 1
+// if char == ')' balanced -= 1
+//   if balanced < 0 stop loop
+// endLoop
+// if balanced == 0 print: "Balanced expression"
+// else print: "Unbalanced expression"
