@@ -36,6 +36,7 @@ int d;
 int parenthesisCounter = 0;
 int bracketsCounter = 0;
 int bracesCounter = 0;
+int lineNumber = 1;
 
 void processInSingleLine(int c){
 	if (c == '\n'){
@@ -65,31 +66,29 @@ void processNotInCommentOrQuotation(int c){
 	}
 }
 
+void isBalanced(int counter){
+	if (counter < 0){
+		printf("Error unbalanced expression. Line:  %d", lineNumber);
+		exit(EXIT_FAILURE);
+	}
+}
+
 void checkParentheses(int c){
 	if(c == '('){
 		parenthesisCounter++;
 	}else if (c == ')'){
-		if (parenthesisCounter == 0){
-			printf("Error unbalanced expression");
-			exit(EXIT_FAILURE);
-		}
 		parenthesisCounter--;
+		isBalanced(parenthesisCounter);
 	}else if (c == '['){
 		bracketsCounter++;
 	}else if (c == ']'){
-		if (bracketsCounter == 0){
-			printf("Error unbalanced expression");
-			exit(EXIT_FAILURE);
-		}
 		bracketsCounter--;
+		isBalanced(bracketsCounter);
 	}else if (c == '{'){
 		bracesCounter++;
 	}else if (c == '}'){
-		if (bracesCounter == 0){
-			printf("Error unbalanced expression");
-			exit(EXIT_FAILURE);
-		}
 		bracesCounter--;
+		isBalanced(bracesCounter);
 	}
 }
 
@@ -99,10 +98,17 @@ void processInQuotation(int c){
 	}
 }
 
+void incrementLine(int c){
+	if(c == '\n'){
+		lineNumber++;
+	}
+}
+
 int main(){
 	state = NOT_IN_COMMENT_OR_QUOTATION;
 	
 	while((c = getchar()) != EOF) {
+		incrementLine(c);
 		switch(state)
 		{
 			case IN_QUOTATION:
@@ -122,7 +128,7 @@ int main(){
 	if (parenthesisCounter == 0 && bracketsCounter == 0 && bracesCounter == 0){
 		printf("Balanced expression");
 	}else {
-		printf("Unbalanced expression");
+		printf("Error unbalanced expression. Line:  %d", lineNumber);
 		exit(EXIT_FAILURE);
 	}
 }

@@ -59,7 +59,7 @@ void processInQuotation(int c){
 	putchar(c);
 }
 
-int main(){
+int main (){
 	state = NOT_IN_COMMENT_OR_QUOTATION;
 	
 	while((c = getchar()) != EOF) {
