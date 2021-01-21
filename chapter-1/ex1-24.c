@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 // Good
 // 2 + (3 + 8)
 // Bad
@@ -37,6 +38,8 @@ int parenthesisCounter = 0;
 int bracketsCounter = 0;
 int bracesCounter = 0;
 int lineNumber = 1;
+char stack[80];
+int stackPosition = 0;
 
 void processInSingleLine(int c){
 	if (c == '\n'){
@@ -62,7 +65,9 @@ void processNotInCommentOrQuotation(int c){
 			state = IN_MULTI_LINE_COMMENT;
 		}
 	}else {
-		checkParentheses(c);
+		if (c == '(' || c == ')' || c == '[' || c == ']' || c == '{' || c == '}'){
+			checkParentheses(c);
+		}
 	}
 }
 
@@ -73,22 +78,49 @@ void isBalanced(int counter){
 	}
 }
 
+bool isMatchingPair(char character1, char character2){ 
+    if (character1 == '(' && character2 == ')'){
+    	return 1; 
+    }else if (character1 == '{' && character2 == '}'){
+    	return 1;
+    }else if (character1 == '[' && character2 == ']'){
+    	return 1; 
+    }else{
+    	return 0;
+    }
+}
+
+
+// Extra challenge: check that multiple variants of brackets are balanced 
+// Not balanced
+// ([)]
+// Not balanced
+// [(])
+
+// Balanced
+// [()]{[()()]()}
+
+// Balanced
+// [({})([])()]{[(){}]}
+      // |
+// [()]
+//
+// {'[', }
+// 0
+
 void checkParentheses(int c){
-	if(c == '('){
-		parenthesisCounter++;
-	}else if (c == ')'){
-		parenthesisCounter--;
-		isBalanced(parenthesisCounter);
-	}else if (c == '['){
-		bracketsCounter++;
-	}else if (c == ']'){
-		bracketsCounter--;
-		isBalanced(bracketsCounter);
-	}else if (c == '{'){
-		bracesCounter++;
-	}else if (c == '}'){
-		bracesCounter--;
-		isBalanced(bracesCounter);
+	if(c == '(' || c == '{' || c == '['){
+		stack[stackPosition] = c;
+		stackPosition++;
+	}else if (c == ')' || c == '}' || c == ']'){
+		stackPosition = stackPosition - 1;
+		bool isMatching = isMatchingPair(stack[stackPosition], c);
+		if(isMatching == 0){
+			printf("Error unbalanced expression. Line:  %d", lineNumber);
+			exit(EXIT_FAILURE);
+		}else {
+			stack[stackPosition] = '\0';
+		}
 	}
 }
 
@@ -124,11 +156,13 @@ int main(){
 				processNotInCommentOrQuotation(c);
 		}
 	}
-
-	if (parenthesisCounter == 0 && bracketsCounter == 0 && bracesCounter == 0){
-		printf("Balanced expression");
-	}else {
-		printf("Error unbalanced expression. Line:  %d", lineNumber);
-		exit(EXIT_FAILURE);
+	
+	for (int i = 0; i < 80; i++){
+		if (stack[i] != '\0'){
+			printf("Unbalanced expression");
+			exit(EXIT_FAILURE);
+		}
 	}
+	
+	printf("Balanced expression");
 }

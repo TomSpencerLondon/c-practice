@@ -43,3 +43,17 @@ Virtual networks you can create that are logically isolated from the rest of the
 // For more information about /* the features of Amazon EC2, see the Amazon */ EC2 product page.
 
 For more information about running your website on AWS, see Web Hosting.
+
+
+// Not balanced
+// ([)]
+// Not balanced
+// [(])
+
+// Balanced
+[()]{[()()]()}
+
+// Balanced
+[({})([])()]{[(){}]}
+
+// ([)]
